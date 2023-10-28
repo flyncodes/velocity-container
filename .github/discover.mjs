@@ -21,7 +21,6 @@ if (!allTags.includes('build-' + latestBuild.build)) {
   githubOutput('PROJECT_VERSION', projectVersion)
   githubOutput('BUILD_TAG', 'build-' + latestBuild.build)
   githubOutput('DOWNLOAD_URL', downloadUrl(projectVersion, latestBuild))
-  console.log(fs.readFileSync(process.env.GITHUB_OUTPUT, "utf8"))
 } else {
   // Exit 0 so the action doesn't fail but wont continue due to DOWNLOAD_URL not being set
   console.log('Docker container is up-to-date with the latest Velocity build!')
@@ -85,10 +84,10 @@ function downloadUrl(projectVersion, build) {
 
 function githubOutput(key, value) {
   if (process.env.GITHUB_OUTPUT === undefined) {
-    console.log('GITHUB_OUTPUT', `${key}="${value}"`)
+    console.log('GITHUB_OUTPUT', `${key}=${value}`)
   } else {
     // Using appendFileSync is fine here as it's not used a lot
-    fs.appendFileSync(process.env.GITHUB_OUTPUT, `${key}="${value}"${os.EOL}`);
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `${key}=${value}${os.EOL}`);
   }
 }
 

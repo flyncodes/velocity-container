@@ -87,8 +87,8 @@ function githubOutput(key, value) {
   if (process.env.GITHUB_OUTPUT === undefined) {
     console.log('GITHUB_OUTPUT', `${key}="${value}"`)
   } else {
-    // Using appendFile is fine here as it's not used a lot
-    fs.appendFile(process.env.GITHUB_OUTPUT, `${key}="${value}"${os.EOL}`);
+    // Using appendFileSync is fine here as it's not used a lot
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `${key}="${value}"${os.EOL}`);
   }
 }
 
